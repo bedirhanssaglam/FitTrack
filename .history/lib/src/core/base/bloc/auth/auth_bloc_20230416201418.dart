@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants/enums/auth_error.dart';
 import '../../../constants/enums/auth_status.dart';
-import '../../../init/cache/cache_manager.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
