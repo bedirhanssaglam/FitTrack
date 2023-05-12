@@ -194,13 +194,6 @@ class FirebaseServices extends IFirebaseServices {
   }
 
   @override
-  Future<void> updateTokenFromStorage() async {
-    if (await CacheManager.containsKey(LocalStorageEnums.token.name)) {
-      final token = await CacheManager.getString(LocalStorageEnums.token.name);
-    }
-  }
-
-  @override
   Future<void> updateToken(String? token) async {
     if (token != null) {
       await CacheManager.setString(LocalStorageEnums.token.name, token);

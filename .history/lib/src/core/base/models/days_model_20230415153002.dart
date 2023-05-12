@@ -1,3 +1,0 @@
-class DaysModel {
-  String? name;
-}

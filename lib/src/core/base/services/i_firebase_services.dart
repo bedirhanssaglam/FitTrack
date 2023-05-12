@@ -16,7 +16,6 @@ abstract class IFirebaseServices {
   Future<UserCredential> signInWithGoogle();
   Future<bool> isFirstEntry();
   Future<void> updateLoggedIn(bool isLoggedIn);
-  Future<void> updateTokenFromStorage();
   Future<void> updateFirstEntry();
   Future<bool> isLoggedIn();
   Future<void> updateToken(String? token);

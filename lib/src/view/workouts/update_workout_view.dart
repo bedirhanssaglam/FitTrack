@@ -1,4 +1,5 @@
 import 'package:fittrack/src/core/base/models/training_model.dart';
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/extensions/context_extensions.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class _UpdateWorkoutViewState extends State<UpdateWorkoutView>
                     children: [
                       3.h.ph,
                       CustomText(
-                        "After changing the program, don't forget\nto update it.",
+                        AppConstants.instance.dontForgetUpdate,
                         textStyle: context.textTheme.titleMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
@@ -68,7 +69,9 @@ class _UpdateWorkoutViewState extends State<UpdateWorkoutView>
                           widget.trainingModel.trainingName = value;
                         },
                         validator: (value) => functions.validateOperation(
-                            value, "Required field."),
+                          value,
+                          AppConstants.instance.formValidation,
+                        ),
                       ),
                       2.h.ph,
                       TextFormFieldWidget(
@@ -81,7 +84,9 @@ class _UpdateWorkoutViewState extends State<UpdateWorkoutView>
                           widget.trainingModel.time = value;
                         },
                         validator: (value) => functions.validateOperation(
-                            value, "Required field."),
+                          value,
+                          AppConstants.instance.formValidation,
+                        ),
                       ),
                       2.h.ph,
                       Align(
@@ -100,7 +105,7 @@ class _UpdateWorkoutViewState extends State<UpdateWorkoutView>
                               context.go("/workouts/${widget.day}");
                             } else {}
                           },
-                          text: "Update",
+                          text: AppConstants.instance.update,
                           width: 40,
                           height: 6,
                         ),

@@ -1,1 +1,0 @@
-enum LocalStorageEnums { login, token }

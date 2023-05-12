@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/constants/enums/local_storage_enums.dart';
 import 'package:fittrack/src/core/extensions/context_extensions.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
@@ -9,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/base/bloc/training/training_bloc.dart';
+import '../../core/base/models/days_model.dart';
 import '../../core/base/singleton/base_singleton.dart';
 import '../../core/components/popup/log_out_popup.dart';
 import '../../core/components/text/custom_text.dart';
@@ -49,8 +51,8 @@ class _HomeViewState extends State<HomeView> with BaseSingleton {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ViewHeaderWidget(
-                title: "Days",
-                onTap: () => logOutPopup(context),
+                title: AppConstants.instance.daysTitle,
+                onTap: () => PopupUtils.logOutPopup(context),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
@@ -61,10 +63,10 @@ class _HomeViewState extends State<HomeView> with BaseSingleton {
                     Row(
                       children: [
                         Text(
-                          "Hello",
+                          AppConstants.instance.hello,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Moderat',
+                            fontFamily: AppConstants.instance.fontFamily,
                             fontSize: 20.sp,
                           ),
                         ),
@@ -73,7 +75,7 @@ class _HomeViewState extends State<HomeView> with BaseSingleton {
                                 ", ${FirebaseAuth.instance.currentUser?.displayName}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Moderat',
+                                  fontFamily: AppConstants.instance.fontFamily,
                                   fontSize: 20.sp,
                                 ),
                               )
@@ -82,7 +84,8 @@ class _HomeViewState extends State<HomeView> with BaseSingleton {
                                     ", $name",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'Moderat',
+                                      fontFamily:
+                                          AppConstants.instance.fontFamily,
                                       fontSize: 20.sp,
                                     ),
                                   )
@@ -91,7 +94,7 @@ class _HomeViewState extends State<HomeView> with BaseSingleton {
                     ),
                     1.h.ph,
                     CustomText(
-                      "Choose the day you want to make reservations",
+                      AppConstants.instance.chooseDayTitle,
                       textStyle: context.textTheme.titleMedium?.copyWith(
                         color: colors.silver,
                       ),
@@ -108,37 +111,14 @@ class _HomeViewState extends State<HomeView> with BaseSingleton {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: state.dayList.length,
                             itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  context.go(
-                                    "/workouts/${state.dayList[index].name}",
-                                  );
-                                },
-                                child: Container(
-                                  height: 7.h,
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(12.sp),
-                                  margin: EdgeInsets.symmetric(vertical: 1.h),
-                                  decoration: BoxDecoration(
-                                    color: colors.mainColor.withOpacity(.3),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: CustomText(
-                                    state.dayList[index].name ?? "",
-                                    textStyle: context.textTheme.headlineSmall
-                                        ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13.sp,
-                                    ),
-                                  ),
-                                ),
-                              );
+                              return _HomeDayCard(day: state.dayList[index]);
                             },
                           );
                         } else if (state is DaysError) {
                           return functions.errorText(state.errorMessage);
                         } else {
-                          return functions.errorText("Something went wrong!");
+                          return functions
+                              .errorText(AppConstants.instance.error);
                         }
                       },
                     ),
@@ -146,6 +126,42 @@ class _HomeViewState extends State<HomeView> with BaseSingleton {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _HomeDayCard extends StatelessWidget with BaseSingleton {
+  const _HomeDayCard({
+    required this.day,
+  });
+
+  final DaysModel day;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        context.go(
+          "/workouts/${day.name}",
+        );
+      },
+      child: Container(
+        height: 7.h,
+        width: double.infinity,
+        padding: EdgeInsets.all(12.sp),
+        margin: EdgeInsets.symmetric(vertical: 1.h),
+        decoration: BoxDecoration(
+          color: colors.mainColor.withOpacity(.3),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: CustomText(
+          day.name ?? "",
+          textStyle: context.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 13.sp,
           ),
         ),
       ),

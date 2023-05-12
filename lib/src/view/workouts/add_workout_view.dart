@@ -1,4 +1,5 @@
 import 'package:fittrack/src/core/components/snackbar/snackbar.dart';
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/extensions/context_extensions.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _AddWorkOutViewState extends State<AddWorkOutView> with BaseSingleton {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ViewHeaderWidget(
-                title: "Training Add",
+                title: AppConstants.instance.trainingAddTitle,
                 onTap: () {
                   context.go("/workouts/${widget.day}");
                 },
@@ -50,16 +51,18 @@ class _AddWorkOutViewState extends State<AddWorkOutView> with BaseSingleton {
                     children: [
                       3.h.ph,
                       CustomText(
-                        "Add the workout of your choice.",
+                        AppConstants.instance.addWorkoutChoice,
                         textStyle: context.textTheme.titleMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       3.h.ph,
                       TextFormFieldWidget(
                         controller: trainingNameController,
-                        hintText: "Training Name",
+                        hintText: AppConstants.instance.trainingName,
                         validator: (value) => functions.validateOperation(
-                            value, "Required field."),
+                          value,
+                          AppConstants.instance.formValidation,
+                        ),
                         onSaved: (value) {
                           trainingNameController.text = value!;
                         },
@@ -68,9 +71,11 @@ class _AddWorkOutViewState extends State<AddWorkOutView> with BaseSingleton {
                       TextFormFieldWidget(
                         controller: timeController,
                         textInputType: TextInputType.number,
-                        hintText: "Training Time",
+                        hintText: AppConstants.instance.trainingTime,
                         validator: (value) => functions.validateOperation(
-                            value, "Required field."),
+                          value,
+                          AppConstants.instance.formValidation,
+                        ),
                         onSaved: (value) {
                           timeController.text = value!;
                         },
@@ -92,12 +97,13 @@ class _AddWorkOutViewState extends State<AddWorkOutView> with BaseSingleton {
                             } else {
                               snackbarWidget(
                                 context,
-                                message: "Please fill in the required fields.",
+                                message:
+                                    AppConstants.instance.fillRequiredFields,
                                 isSuccess: false,
                               );
                             }
                           },
-                          text: "Add",
+                          text: AppConstants.instance.add,
                           width: 40,
                           height: 6,
                         ),

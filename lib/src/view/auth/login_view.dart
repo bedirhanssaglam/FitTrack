@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fittrack/src/core/base/services/firebase_services.dart';
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/constants/enums/icon_enums.dart';
 import 'package:fittrack/src/core/extensions/context_extensions.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
@@ -67,7 +68,7 @@ class _LoginViewState extends State<LoginView> with BaseSingleton {
                 children: [
                   10.h.ph,
                   CustomText(
-                    "Hi, Welcome Back",
+                    AppConstants.instance.loginHello,
                     textStyle: context.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: colors.lightBlack,
@@ -75,7 +76,7 @@ class _LoginViewState extends State<LoginView> with BaseSingleton {
                   ),
                   2.h.ph,
                   CustomText(
-                    "Login into your account",
+                    AppConstants.instance.loginTitle,
                     textStyle: context.textTheme.titleMedium?.copyWith(
                       color: colors.silver,
                     ),
@@ -84,12 +85,12 @@ class _LoginViewState extends State<LoginView> with BaseSingleton {
                   TextFormFieldWidget(
                     controller: emailController,
                     textInputType: TextInputType.emailAddress,
-                    hintText: "Your Email",
+                    hintText: AppConstants.instance.yourEmail,
                   ),
                   3.h.ph,
                   TextFormFieldWidget(
                     controller: passwordController,
-                    hintText: "Your password",
+                    hintText: AppConstants.instance.yourPassword,
                     isPassword: true,
                   ),
                   3.h.ph,
@@ -103,12 +104,12 @@ class _LoginViewState extends State<LoginView> with BaseSingleton {
                               context.go(RouteEnums.register.routeName);
                             },
                             child: Text(
-                              "Sign Up",
+                              AppConstants.instance.signUp,
                               style: TextStyle(
                                 color: colors.mainColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14.sp,
-                                fontFamily: 'Moderat',
+                                fontFamily: AppConstants.instance.fontFamily,
                               ),
                             ),
                           ),
@@ -119,7 +120,7 @@ class _LoginViewState extends State<LoginView> with BaseSingleton {
                               color: colors.mainColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 14.sp,
-                              fontFamily: 'Moderat',
+                              fontFamily: AppConstants.instance.fontFamily,
                             ),
                           ),
                         ],
@@ -159,13 +160,12 @@ class _LoginViewState extends State<LoginView> with BaseSingleton {
                               ? context.go(RouteEnums.home.routeName)
                               : snackbarWidget(
                                   context,
-                                  message:
-                                      "There is no user record corresponding to this identifier. The user may have been deleted.",
+                                  message: AppConstants.instance.deletedUser,
                                   isSuccess: false,
                                   milliseconds: 1500,
                                 ));
                     },
-                    text: "Sign In",
+                    text: AppConstants.instance.signIn,
                   ),
                 ],
               ),

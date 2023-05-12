@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fittrack/src/core/base/models/days_model.dart';
@@ -57,13 +58,13 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
       emit(TrainingAdded(isAdded));
       snackbarWidget(
         event.context,
-        message: "Added training.",
+        message: AppConstants.instance.trainingAdded,
       );
     } catch (e) {
       emit(TrainingError(e.toString()));
       snackbarWidget(
         event.context,
-        message: "Could not add training.",
+        message: AppConstants.instance.trainingNotAdded,
         isSuccess: false,
       );
     }
@@ -80,12 +81,13 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
         time: event.time,
       );
       emit(TrainingUpdated(isUpdated));
-      snackbarWidget(event.context, message: "Training has been updated.");
+      snackbarWidget(event.context,
+          message: AppConstants.instance.trainingUpdated);
     } catch (e) {
       emit(TrainingUpdateError(e.toString()));
       snackbarWidget(
         event.context,
-        message: "Training could not be updated.",
+        message: AppConstants.instance.trainingNotUpdated,
         isSuccess: false,
       );
     }

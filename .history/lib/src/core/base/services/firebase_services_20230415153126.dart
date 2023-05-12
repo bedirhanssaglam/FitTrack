@@ -1,3 +1,0 @@
-class FirebaseServices {
-  final 
-}

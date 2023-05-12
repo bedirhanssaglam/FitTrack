@@ -55,7 +55,7 @@ class ViewHeaderWidget extends StatelessWidget with BaseSingleton {
             isRegister!
                 ? const SizedBox.shrink()
                 : InkWell(
-                    onTap: () => logOutPopup(context),
+                    onTap: () => PopupUtils.logOutPopup(context),
                     child: SvgPicture.asset(IconEnums.signOut.iconName.toSvg),
                   ),
           ],

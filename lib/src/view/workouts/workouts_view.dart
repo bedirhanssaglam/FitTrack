@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/extensions/context_extensions.dart';
 import 'package:fittrack/src/core/extensions/list_extension.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
@@ -60,7 +61,7 @@ class _WorkoutsViewState extends State<WorkoutsView> with BaseSingleton {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ViewHeaderWidget(
-                title: "Workouts",
+                title: AppConstants.instance.workouts,
                 onTap: () {
                   context.go(RouteEnums.home.routeName);
                 },
@@ -71,40 +72,10 @@ class _WorkoutsViewState extends State<WorkoutsView> with BaseSingleton {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     3.h.ph,
-                    Row(
-                      children: [
-                        Text(
-                          "Hello",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Moderat',
-                            fontSize: 20.sp,
-                          ),
-                        ),
-                        FirebaseAuth.instance.currentUser?.displayName != null
-                            ? Text(
-                                ", ${FirebaseAuth.instance.currentUser?.displayName}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Moderat',
-                                  fontSize: 20.sp,
-                                ),
-                              )
-                            : name != null
-                                ? Text(
-                                    ", $name",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Moderat',
-                                      fontSize: 20.sp,
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
-                      ],
-                    ),
+                    _buildName(),
                     1.h.ph,
                     CustomText(
-                      "Select the workout you want to change",
+                      AppConstants.instance.selectForChange,
                       textStyle: context.textTheme.titleMedium?.copyWith(
                         color: colors.silver,
                       ),
@@ -142,12 +113,13 @@ class _WorkoutsViewState extends State<WorkoutsView> with BaseSingleton {
                                   },
                                 )
                               : functions.errorText(
-                                  "You have not planned any training.",
+                                  AppConstants.instance.emptyPlan,
                                 );
                         } else if (state is TrainingByDayError) {
                           return functions.errorText(state.errorMessage);
                         } else {
-                          return functions.errorText("Something went wrong!");
+                          return functions
+                              .errorText(AppConstants.instance.error);
                         }
                       },
                     ),
@@ -158,6 +130,40 @@ class _WorkoutsViewState extends State<WorkoutsView> with BaseSingleton {
           ),
         ),
       ),
+    );
+  }
+
+  Row _buildName() {
+    return Row(
+      children: [
+        Text(
+          AppConstants.instance.hello,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: AppConstants.instance.fontFamily,
+            fontSize: 20.sp,
+          ),
+        ),
+        FirebaseAuth.instance.currentUser?.displayName != null
+            ? Text(
+                ", ${FirebaseAuth.instance.currentUser?.displayName}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: AppConstants.instance.fontFamily,
+                  fontSize: 20.sp,
+                ),
+              )
+            : name != null
+                ? Text(
+                    ", $name",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AppConstants.instance.fontFamily,
+                      fontSize: 20.sp,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+      ],
     );
   }
 }

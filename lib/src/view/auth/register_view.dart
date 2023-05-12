@@ -1,4 +1,5 @@
 import 'package:fittrack/src/core/base/services/firebase_services.dart';
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -33,7 +34,7 @@ class _RegisterViewState extends State<RegisterView> with BaseSingleton {
           child: Column(
             children: [
               ViewHeaderWidget(
-                title: "Create an Account",
+                title: AppConstants.instance.createAccountTitle,
                 onTap: () {
                   context.go(RouteEnums.login.routeName);
                 },
@@ -48,9 +49,11 @@ class _RegisterViewState extends State<RegisterView> with BaseSingleton {
                     children: [
                       TextFormFieldWidget(
                         controller: nameController,
-                        hintText: "Your Name",
+                        hintText: AppConstants.instance.yourName,
                         validator: (value) => functions.validateOperation(
-                            value, "Required field."),
+                          value,
+                          AppConstants.instance.formValidation,
+                        ),
                         onSaved: (value) {
                           nameController.text = value!;
                         },
@@ -59,9 +62,11 @@ class _RegisterViewState extends State<RegisterView> with BaseSingleton {
                       TextFormFieldWidget(
                         controller: emailController,
                         textInputType: TextInputType.emailAddress,
-                        hintText: "E-mail",
+                        hintText: AppConstants.instance.email,
                         validator: (value) => functions.validateOperation(
-                            value, "Required field."),
+                          value,
+                          AppConstants.instance.formValidation,
+                        ),
                         onSaved: (value) {
                           emailController.text = value!;
                         },
@@ -69,10 +74,12 @@ class _RegisterViewState extends State<RegisterView> with BaseSingleton {
                       2.h.ph,
                       TextFormFieldWidget(
                         controller: passwordController,
-                        hintText: "Password",
+                        hintText: AppConstants.instance.password,
                         isPassword: true,
                         validator: (value) => functions.validateOperation(
-                            value, "Required field."),
+                          value,
+                          AppConstants.instance.formValidation,
+                        ),
                         onSaved: (value) {
                           passwordController.text = value!;
                         },
@@ -94,13 +101,13 @@ class _RegisterViewState extends State<RegisterView> with BaseSingleton {
                         .then((_) => context.go(RouteEnums.home.routeName));
                   }
                 },
-                text: "Create Account",
+                text: AppConstants.instance.createAccountButton,
               ),
               2.h.ph,
               Text(
-                "Already have an account?",
+                AppConstants.instance.haveAnAccount,
                 style: TextStyle(
-                  fontFamily: 'Moderat',
+                  fontFamily: AppConstants.instance.fontFamily,
                   fontSize: 14.sp,
                 ),
               ),
@@ -110,10 +117,10 @@ class _RegisterViewState extends State<RegisterView> with BaseSingleton {
                   context.go(RouteEnums.login.routeName);
                 },
                 child: Text(
-                  "Sign in",
+                  AppConstants.instance.signIn,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Moderat',
+                    fontFamily: AppConstants.instance.fontFamily,
                     fontSize: 14.sp,
                   ),
                 ),
