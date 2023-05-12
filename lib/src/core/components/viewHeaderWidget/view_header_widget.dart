@@ -1,4 +1,3 @@
-import 'package:fittrack/src/core/components/popup/log_out_popup.dart';
 import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
 import 'package:fittrack/src/core/extensions/string_extensions.dart';
@@ -8,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../base/singleton/base_singleton.dart';
 import '../../constants/enums/icon_enums.dart';
+import '../popup/popups.dart';
 
 class ViewHeaderWidget extends StatelessWidget with BaseSingleton {
   const ViewHeaderWidget({

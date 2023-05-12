@@ -95,7 +95,7 @@ class _AddWorkOutViewState extends State<AddWorkOutView> with BaseSingleton {
                                   );
                               context.go("/workouts/${widget.day}");
                             } else {
-                              snackbarWidget(
+                              SnackbarUtil.snackbarWidget(
                                 context,
                                 message:
                                     AppConstants.instance.fillRequiredFields,

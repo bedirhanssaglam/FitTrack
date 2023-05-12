@@ -114,9 +114,9 @@ class _CustomButtonState extends State<CustomButton>
             width: widget.width?.w,
             decoration: BoxDecoration(
               color: colors.mainColor,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
-                  offset: const Offset(0, 0),
+                  offset: Offset(0, 0),
                   color: Colors.white12,
                   blurRadius: 2,
                   spreadRadius: 2,

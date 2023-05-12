@@ -158,7 +158,7 @@ class _LoginViewState extends State<LoginView> with BaseSingleton {
                               password: passwordController.text.trim())
                           .then((value) => value
                               ? context.go(RouteEnums.home.routeName)
-                              : snackbarWidget(
+                              : SnackbarUtil.snackbarWidget(
                                   context,
                                   message: AppConstants.instance.deletedUser,
                                   isSuccess: false,

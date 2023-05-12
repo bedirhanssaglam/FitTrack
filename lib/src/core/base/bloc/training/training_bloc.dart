@@ -56,13 +56,13 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
         time: event.time,
       );
       emit(TrainingAdded(isAdded));
-      snackbarWidget(
+      SnackbarUtil.snackbarWidget(
         event.context,
         message: AppConstants.instance.trainingAdded,
       );
     } catch (e) {
       emit(TrainingError(e.toString()));
-      snackbarWidget(
+      SnackbarUtil.snackbarWidget(
         event.context,
         message: AppConstants.instance.trainingNotAdded,
         isSuccess: false,
@@ -81,11 +81,11 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
         time: event.time,
       );
       emit(TrainingUpdated(isUpdated));
-      snackbarWidget(event.context,
+      SnackbarUtil.snackbarWidget(event.context,
           message: AppConstants.instance.trainingUpdated);
     } catch (e) {
       emit(TrainingUpdateError(e.toString()));
-      snackbarWidget(
+      SnackbarUtil.snackbarWidget(
         event.context,
         message: AppConstants.instance.trainingNotUpdated,
         isSuccess: false,
@@ -100,10 +100,10 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
       bool isDeleted =
           await firebaseServices.deleteTraining(id: event.id, day: event.day);
       emit(TrainingDeleted(isDeleted));
-      snackbarWidget(event.context, message: "Training deleted.");
+      SnackbarUtil.snackbarWidget(event.context, message: "Training deleted.");
     } catch (e) {
       emit(TrainingDeleteError(e.toString()));
-      snackbarWidget(
+      SnackbarUtil.snackbarWidget(
         event.context,
         message: "Failed to delete training.",
         isSuccess: false,

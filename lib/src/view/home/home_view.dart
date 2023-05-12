@@ -12,7 +12,7 @@ import 'package:sizer/sizer.dart';
 import '../../core/base/bloc/training/training_bloc.dart';
 import '../../core/base/models/days_model.dart';
 import '../../core/base/singleton/base_singleton.dart';
-import '../../core/components/popup/log_out_popup.dart';
+import '../../core/components/popup/popups.dart';
 import '../../core/components/text/custom_text.dart';
 import '../../core/components/viewHeaderWidget/view_header_widget.dart';
 
