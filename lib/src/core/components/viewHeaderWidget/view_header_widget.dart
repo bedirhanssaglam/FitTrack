@@ -1,4 +1,5 @@
 import 'package:fittrack/src/core/components/popup/log_out_popup.dart';
+import 'package:fittrack/src/core/constants/app/app_constants.dart';
 import 'package:fittrack/src/core/extensions/num_extensions.dart';
 import 'package:fittrack/src/core/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class ViewHeaderWidget extends StatelessWidget with BaseSingleton {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Moderat',
+                    fontFamily: AppConstants.instance.fontFamily,
                     fontSize: 19.sp,
                   ),
                 ),

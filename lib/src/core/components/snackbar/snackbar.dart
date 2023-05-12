@@ -23,8 +23,8 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackbarWidget(
     ),
     behavior: SnackBarBehavior.floating,
     duration: Duration(milliseconds: milliseconds),
-    shape: RoundedRectangleBorder(
-      borderRadius: const BorderRadius.only(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
         topRight: Radius.circular(8),
         bottomRight: Radius.circular(8),
       ),

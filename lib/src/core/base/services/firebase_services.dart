@@ -6,6 +6,7 @@ import 'package:fittrack/src/core/base/models/days_model.dart';
 import 'package:fittrack/src/core/base/models/user_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../constants/enums/firebase_enums.dart';
 import '../../constants/enums/local_storage_enums.dart';
 import '../../init/cache/cache_manager.dart';
 import '../models/training_model.dart';
@@ -15,7 +16,7 @@ class FirebaseServices extends IFirebaseServices {
   @override
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn(
-      scopes: <String>["email"],
+      scopes: <String>[FirebaseEnums.email.value],
     ).signIn();
 
     final GoogleSignInAuthentication? googleAuth =
@@ -42,7 +43,9 @@ class FirebaseServices extends IFirebaseServices {
     List<DaysModel> dayList = [];
 
     try {
-      final days = await FirebaseFirestore.instance.collection("days").get();
+      final days = await FirebaseFirestore.instance
+          .collection(FirebaseEnums.days.value)
+          .get();
       days.docs.forEach((element) {
         return dayList.add(DaysModel.fromJson(element.data()));
       });
@@ -144,7 +147,8 @@ class FirebaseServices extends IFirebaseServices {
     required String email,
     required String password,
   }) async {
-    var doc = FirebaseFirestore.instance.collection("User").doc();
+    var doc =
+        FirebaseFirestore.instance.collection(FirebaseEnums.user.value).doc();
     var user = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
     if (user.user?.displayName == null) {
@@ -169,38 +173,6 @@ class FirebaseServices extends IFirebaseServices {
       return true;
     } catch (e) {
       return false;
-    }
-  }
-
-  @override
-  Future<bool> isLoggedIn() async {
-    return (await CacheManager.getBool(LocalStorageEnums.login.name)) ?? false;
-  }
-
-  @override
-  Future<bool> isFirstEntry() async {
-    return !(await CacheManager.getBool(LocalStorageEnums.introOff.name) ??
-        false);
-  }
-
-  @override
-  Future<void> updateFirstEntry() async {
-    await CacheManager.setBool(LocalStorageEnums.introOff.name, true);
-  }
-
-  @override
-  Future<void> updateLoggedIn(bool isLoggedIn) async {
-    await CacheManager.setBool(LocalStorageEnums.login.name, isLoggedIn);
-  }
-
-  @override
-  Future<void> updateToken(String? token) async {
-    if (token != null) {
-      await CacheManager.setString(LocalStorageEnums.token.name, token);
-    } else {
-      if (await CacheManager.containsKey(LocalStorageEnums.token.name)) {
-        await CacheManager.remove(LocalStorageEnums.token.name);
-      }
     }
   }
 }

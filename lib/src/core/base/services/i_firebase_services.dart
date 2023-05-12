@@ -4,6 +4,7 @@ import '../models/days_model.dart';
 import '../models/training_model.dart';
 
 abstract class IFirebaseServices {
+  // Authentication
   Future<bool> login({
     required String email,
     required String password,
@@ -14,12 +15,8 @@ abstract class IFirebaseServices {
     required String password,
   });
   Future<UserCredential> signInWithGoogle();
-  Future<bool> isFirstEntry();
-  Future<void> updateLoggedIn(bool isLoggedIn);
-  Future<void> updateFirstEntry();
-  Future<bool> isLoggedIn();
-  Future<void> updateToken(String? token);
-  Future<void> signOut();
+
+  // Firestore
   Future<List<DaysModel>> fetchAllDays();
   Future<List<TrainingModel>> getTrainingByDay({required String day});
   Future<bool> createTraining({
